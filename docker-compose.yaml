@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  server:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    networks:
+      - task-manager
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - task-manager
+    volumes:
+      - mongo-database:/data/db
+networks:
+  task-manager:
+    driver: bridge
+volumes:
+  mongo-database:
+    driver: local
